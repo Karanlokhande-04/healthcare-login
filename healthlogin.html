@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #a8d5a8;
+      --text: #000;
+      --card-bg: #fff;
+      --input-border: #ccc;
+      --btn-bg: #4caf50;
+      --btn-hover: #45a049;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card-bg: #1e1e1e;
+      --input-border: #333;
+      --btn-bg: #81c784;
+      --btn-hover: #66bb6a;
+    }
+
+    * {
+      box-sizing: border-box;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 90%;
+      max-width: 900px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .login-box {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      animation: slideInLeft 1s ease;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--text);
+      width: 0;
+      animation: typing 2s steps(20, end) forwards, blinkCaret 0.75s step-end infinite;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      animation: glowPulse 3s infinite;
+    }
+
+    .forgot-password {
+      text-align: right;
+      color: blue;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn {
+      width: 100%;
+      background: var(--btn-bg);
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      animation: buttonGlow 3s infinite;
+    }
+
+    .btn:hover {
+      background: var(--btn-hover);
+    }
+
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    .social-btn {
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      animation: bubblePop 0.8s ease-in-out;
+    }
+
+    .google { background: #db4437; color: white; }
+    .apple { background: black; color: white; }
+    .facebook { background: #3b5998; color: white; }
+
+    .register {
+      color: blue;
+      cursor: pointer;
+      animation: bounceY 2s infinite;
+    }
+
+    .illustration {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f5f5;
+      padding: 20px;
+      animation: slideInRight 1.2s ease-in-out;
+    }
+
+    .illustration img {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      transition: transform 0.4s ease;
+    }
+
+    .illustration img:hover {
+      animation: tiltHover 1.5s infinite ease-in-out;
+    }
+
+    /* Toggle Switch */
+    .toggle-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "☀️";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      text-align: center;
+      line-height: 26px;
+      border-radius: 50%;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+      content: "🌙";
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        width: 95%;
+      }
+
+      .illustration {
+        order: -1;
+      }
+
+      .illustration img {
+        max-width: 300px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes slideInLeft { 0% { transform: translateX(-50px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+    @keyframes slideInRight { 0% { transform: translateX(50px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blinkCaret { 0%, 100% { border-color: transparent; } 50% { border-color: var(--text); } }
+    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px var(--btn-bg); } 50% { box-shadow: 0 0 15px var(--btn-bg); } }
+    @keyframes bounceY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @keyframes tiltHover { 0% { transform: rotate(0); } 50% { transform: rotate(1deg); } 100% { transform: rotate(-1deg); } }
+    @keyframes bubblePop { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    @keyframes buttonGlow { 0%, 100% { box-shadow: 0 0 10px var(--btn-bg); } 50% { box-shadow: 0 0 25px #81c784; } }
+  </style>
+</head>
+<body>
+  <!-- DARK MODE TOGGLE -->
+  <div class="toggle-container">
+    <label class="toggle-switch">
+      <input type="checkbox" id="modeToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+    <div class="login-box">
+      <h2>Sign in</h2>
+      <p>Hey, Enter your details to login to your account</p>
+      <input type="text" placeholder="Enter Email / Phone No" class="input-box">
+      <input type="password" placeholder="Passcode" class="input-box">
+      <div class="forgot-password">Forgot password?</div>
+      <button class="btn" onclick="redirectToDashboard()">Sign in</button>
+      <p>Or Sign in with</p>
+      <div class="social-login">
+        <button class="social-btn google">Google</button>
+        <button class="social-btn apple">Apple ID</button>
+        <button class="social-btn facebook">Facebook</button>
+      </div>
+      <p>Don’t have an account? <span class="register">Register Now</span></p>
+    </div>
+    <div class="illustration">
+      <img src="karan.png" alt="Illustration" />
+    </div>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
+
+  <!-- SCRIPT -->
+  <script>
+    function redirectToDashboard() {
+      const clickSound = document.getElementById("clickSound");
+      clickSound.play();
+      setTimeout(() => {
+        window.location.href = "healthhome.html";
+      }, 300);
+    }
+
+    const modeToggle = document.getElementById("modeToggle");
+    modeToggle.addEventListener("change", () => {
+      document.body.classList.toggle("dark");
+    });
+  </script>
+</body>
+</html>
